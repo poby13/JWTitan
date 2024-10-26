@@ -1,0 +1,22 @@
+@host = http://localhost:8080
+### 로그인
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "test",
+  "password": "1234"
+}
+
+### 리프레시 토큰
+POST {{host}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "7664a360-3f1f-4ec5-a44e-658e1b02edeb",
+  "fingerprint": "5ef556c4-e366-417a-9917-d3c1d4815251"
+}
+
+### 로그아웃
+POST {{host}}/api/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJmaW5nZXJwcmludCI6IjY4N2ZhYjhkLTNiYjItNGNhOS1iZTY3LTkzZTU2YTkxODRkYyIsInN1YiI6InRlc3QiLCJpYXQiOjE3MzAxMjM0OTgsImV4cCI6MTczMzcyMzQ5OH0.KjPZiOT75BCWlRCi3Bbm2jSV1UnWGX4A4E1b71bxBt_UXv7teWacuOBQEBoxzOb16f_DbdWCfgdEiQ2dLC8XQw
