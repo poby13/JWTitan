@@ -42,6 +42,7 @@ public class AuthController {
 
         JwtResponse jwtResponse = JwtResponse.builder()
                 .token(token)
+                .username(user.getUsername())
                 .refreshToken(refreshToken)
                 .fingerprint(fingerprint)
                 .build();

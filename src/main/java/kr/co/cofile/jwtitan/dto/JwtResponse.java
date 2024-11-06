@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class JwtResponse {
     private String token;
     private String refreshToken;
+    // 빌더 사용시에 기본값 적용
+    @Builder.Default
     private String type = "Bearer";
     private String username;
     private String fingerprint;
