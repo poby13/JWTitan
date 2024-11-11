@@ -5,12 +5,14 @@ import kr.co.cofile.jwtitan.dto.JwtResponse;
 import kr.co.cofile.jwtitan.dto.RefreshTokenRequest;
 import kr.co.cofile.jwtitan.dto.User;
 import kr.co.cofile.jwtitan.mapper.UserMapper;
+import kr.co.cofile.jwtitan.security.CustomAuthenticationToken;
 import kr.co.cofile.jwtitan.security.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -29,11 +31,18 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
+        // AuthenticationManager - Provider 관리 - 적절한 Provider에게 인증 위임
+        // CustomAuthenticationToken 사용
+        authenticationManager.authenticate(
+                //new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
+                new CustomAuthenticationToken(
+                        authenticationRequest.getUsername(),
+                        authenticationRequest.getPassword(),
+                        authenticationRequest.getGroupId()
+                )
         );
 
-        User user = userMapper.findByUsername(authenticationRequest.getUsername());
+        User user = userMapper.findByUsername(authenticationRequest.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         String fingerprint = UUID.randomUUID().toString();
         String token = jwtTokenUtil.generateToken(user.getUsername(), user.getGroupId(), fingerprint);
         String refreshToken = UUID.randomUUID().toString();
@@ -54,7 +63,7 @@ public class AuthController {
     public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest request) {
         String username = redisTemplate.opsForValue().get("refresh_token:" + request.getRefreshToken());
         if (username != null) {
-            User user = userMapper.findByUsername(username);
+            User user = userMapper.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
             String fingerprint = UUID.randomUUID().toString();
             String newToken = jwtTokenUtil.generateToken(username, user.getGroupId(), fingerprint);
 
