@@ -15,6 +15,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserMapper userMapper;
 
+    // UsernamePasswordAuthenticationFilter (폼 로그인) 및 JWT 토큰 생성 시 사용자 검증시 호출
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userMapper.findByUsername(username);
