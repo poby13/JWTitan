@@ -12,6 +12,9 @@ public class User {
     private String password;
     @Email
     private String email;
+    private String name;
+    private String phone;
+    private String role;
     private Boolean enabled;
     private Long groupId;
     private List<Role> roleList;
