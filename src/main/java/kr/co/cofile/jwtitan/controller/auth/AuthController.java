@@ -1,4 +1,4 @@
-package kr.co.cofile.jwtitan.controller;
+package kr.co.cofile.jwtitan.controller.auth;
 
 import kr.co.cofile.jwtitan.dto.JwtRequest;
 import kr.co.cofile.jwtitan.dto.JwtResponse;
@@ -18,7 +18,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -27,6 +27,13 @@ public class AuthController {
     private final UserMapper userMapper;
     private final RedisTemplate<String, String> redisTemplate;
 
+    // 회원가입
+    @PostMapping("/signup")
+    public ResponseEntity<String> signup() {
+        return ResponseEntity.ok("auth/singup");
+    }
+
+    // 로그인
     @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) {
         // AuthenticationManager - Provider 관리 - 적절한 Provider에게 인증 위임
@@ -57,6 +64,7 @@ public class AuthController {
         return ResponseEntity.ok(jwtResponse);
     }
 
+    // 토큰 갱신
     @PostMapping("/refresh")
     public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest request) {
         String username = redisTemplate.opsForValue().get("refresh_token:" + request.getRefreshToken());
@@ -76,6 +84,7 @@ public class AuthController {
         return ResponseEntity.badRequest().body("Invalid refresh token");
     }
 
+    // 로그아웃
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") RefreshTokenRequest refreshToken) {
         String token = refreshToken.getRefreshToken();
@@ -111,5 +120,17 @@ public class AuthController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Logout failed");
         }
+    }
+
+    // 비밀번호 초기화 요청
+    @PostMapping("/password/reset")
+    public ResponseEntity<String> passwordReset() {
+        return ResponseEntity.ok("auth/passwordReset");
+    }
+
+    // 비밀번호 변경
+    @PostMapping("/password/change")
+    public ResponseEntity<String> passwordChange() {
+        return ResponseEntity.ok("auth/passwordChange");
     }
 }
