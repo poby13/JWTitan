@@ -1,7 +1,7 @@
 package kr.co.cofile.jwtitan.service;
 
-import kr.co.cofile.jwtitan.dto.CustomUserDetails;
-import kr.co.cofile.jwtitan.dto.User;
+import kr.co.cofile.jwtitan.security.CustomUserDetails;
+import kr.co.cofile.jwtitan.model.User;
 import kr.co.cofile.jwtitan.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

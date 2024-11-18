@@ -1,4 +1,4 @@
-package kr.co.cofile.jwtitan.dto;
+package kr.co.cofile.jwtitan.model;
 
 import jakarta.validation.constraints.Email;
 import lombok.Data;

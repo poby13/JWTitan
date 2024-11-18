@@ -1,7 +1,6 @@
 package kr.co.cofile.jwtitan.security;
 
 import kr.co.cofile.jwtitan.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import kr.co.cofile.jwtitan.dto.User;
+import kr.co.cofile.jwtitan.model.User;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {

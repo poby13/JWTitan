@@ -1,6 +1,6 @@
 package kr.co.cofile.jwtitan.mapper;
 
-import kr.co.cofile.jwtitan.dto.User;
+import kr.co.cofile.jwtitan.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
