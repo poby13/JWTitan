@@ -15,7 +15,7 @@ public class UserContriller {
 
     // 특정 사용자 정보 조회
     @GetMapping("/{userId}")
-    public ResponseEntity<String> detail(@PathVariable("userId") String userId) {
+    public ResponseEntity<String> get(@PathVariable("userId") String userId) {
         return ResponseEntity.ok("get:users/" + userId);
     }
 

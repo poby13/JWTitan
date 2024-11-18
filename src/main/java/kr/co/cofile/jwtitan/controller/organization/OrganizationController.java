@@ -1,4 +1,4 @@
-package kr.co.cofile.jwtitan.controller.orga;
+package kr.co.cofile.jwtitan.controller.organization;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class OrganizationController {
 
     // 특정 조직 정보 조회
     @GetMapping("/{orgId}")
-    public ResponseEntity<String> detail(@PathVariable("orgId") String orgId) {
+    public ResponseEntity<String> get(@PathVariable("orgId") String orgId) {
         return ResponseEntity.ok("get:organizations/" + orgId);
     }
 
