@@ -26,7 +26,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // JWT를 사용하므로 csrf 비활성화
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()  // 인증 경로는 모두 허용
+                        .requestMatchers("/api/v1/auth/**").permitAll()  // 인증 경로는 모두 허용
                         .anyRequest().authenticated()  // 그 외 경로는 인증 필요
                 )
                 .sessionManagement(session -> session
