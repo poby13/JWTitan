@@ -26,7 +26,7 @@ public class UserContriller {
     }
 
     // 사용자 삭제
-    @DeleteMapping("/{userId")
+    @DeleteMapping("/{userId}")
     public ResponseEntity<String> delete(@PathVariable("userId") String userId) {
         return ResponseEntity.ok("delete:users/" + userId);
     }
