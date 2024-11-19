@@ -1,0 +1,59 @@
+@host = http://localhost:8080
+@categoryId = 123
+
+### 카테고리 목록 조회
+GET {{host}}/api/v1/categories
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 카테고리 목록 조회 (페이징, 정렬, 검색 포함)
+GET {{host}}/api/v1/categories?page=1&size=20&sort=name,asc&search=test
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 새 카테고리 생성
+POST {{host}}/api/v1/categories
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "name": "컨퍼런스",
+    "description": "기술 컨퍼런스 및 세미나",
+    "code": "CONF",
+    "parentId": null,
+    "status": "ACTIVE",
+    "displayOrder": 1,
+    "metadata": {
+        "icon": "conference-icon",
+        "color": "#FF5733"
+    }
+}
+
+### 카테고리 수정
+PUT {{host}}/api/v1/categories/{{categoryId}}
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "name": "테크 컨퍼런스",
+    "description": "기술 컨퍼런스 및 개발자 세미나",
+    "code": "TECH_CONF",
+    "status": "ACTIVE",
+    "displayOrder": 2,
+    "metadata": {
+        "icon": "tech-conference-icon",
+        "color": "#3366FF"
+    }
+}
+
+### 카테고리 삭제
+DELETE {{host}}/api/v1/categories/{{categoryId}}
+Authorization: Bearer {{accessToken}}
+
+### 카테고리별 이벤트 조회
+GET {{host}}/api/v1/events/categories/{{categoryId}}
+Authorization: Bearer {{accessToken}}
+
+### 카테고리별 이벤트 조회 (페이징, 정렬, 필터 포함)
+GET {{host}}/api/v1/events/categories/{{categoryId}}?page=1&size=10&sort=startDate,desc&status=UPCOMING&startDate=2024-01-01&endDate=2024-12-31
+Authorization: Bearer {{accessToken}}

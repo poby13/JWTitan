@@ -1,0 +1,151 @@
+@host = http://localhost:8080
+@eventId = 123
+@userId = 456
+@regId = 789
+@paymentId = 999
+
+### 이벤트 목록 조회
+GET {{host}}/api/v1/events
+Authorization: Bearer {{accessToken}}
+# 옵션 쿼리 파라미터
+# ?page=1&size=20&sort=startDate,desc&search=conference&status=UPCOMING&startDate=2024-01-01&endDate=2024-12-31
+
+### 새 이벤트 생성
+POST {{host}}/api/v1/events
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "Tech Conference 2024",
+    "description": "Annual Technology Conference",
+    "startDate": "2024-06-01T09:00:00Z",
+    "endDate": "2024-06-02T18:00:00Z",
+    "location": {
+        "address": "123 Conference St",
+        "city": "Seoul",
+        "country": "South Korea",
+        "postalCode": "12345"
+    },
+    "capacity": 500,
+    "category": "TECHNOLOGY",
+    "price": {
+        "amount": 100000,
+        "currency": "KRW"
+    },
+    "registrationDeadline": "2024-05-15T23:59:59Z"
+}
+
+### 특정 이벤트 조회
+GET {{host}}/api/v1/events/{{eventId}}
+Authorization: Bearer {{accessToken}}
+
+### 이벤트 정보 수정
+PUT {{host}}/api/v1/events/{{eventId}}
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "Updated Tech Conference 2024",
+    "description": "Updated Conference Description",
+    "startDate": "2024-06-01T10:00:00Z",
+    "endDate": "2024-06-02T19:00:00Z",
+    "capacity": 600
+}
+
+### 이벤트 삭제
+DELETE {{host}}/api/v1/events/{{eventId}}
+Authorization: Bearer {{accessToken}}
+
+### 참가자 목록 조회
+GET {{host}}/api/v1/events/{{eventId}}/participations
+Authorization: Bearer {{accessToken}}
+# ?page=1&size=20&sort=registeredAt,desc&status=APPROVED
+
+### 참가 신청
+POST {{host}}/api/v1/events/{{eventId}}/participations
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "userId": "{{userId}}",
+    "ticketType": "REGULAR",
+    "additionalInfo": {
+        "dietaryRestrictions": "VEGETARIAN",
+        "tShirtSize": "L"
+    }
+}
+
+### 참가 취소
+DELETE {{host}}/api/v1/events/{{eventId}}/participations/{{userId}}
+Authorization: Bearer {{accessToken}}
+
+### 참가 상태 변경
+PUT {{host}}/api/v1/events/{{eventId}}/participations/{{userId}}/status
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "status": "APPROVED",
+    "comment": "Approval comment"
+}
+
+### 등록 목록 조회
+GET {{host}}/api/v1/events/{{eventId}}/registrations
+Authorization: Bearer {{accessToken}}
+# ?page=1&size=20&sort=registeredAt,desc&status=PENDING
+
+### 등록 신청
+POST {{host}}/api/v1/events/{{eventId}}/registrations
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "ticketType": "VIP",
+    "quantity": 1,
+    "attendeeInfo": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "phone": "010-1234-5678"
+    }
+}
+
+### 등록 상태 변경
+PUT {{host}}/api/v1/events/{{eventId}}/registrations/{{regId}}/status
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "status": "CONFIRMED",
+    "comment": "Payment received"
+}
+
+### 결제 생성
+POST {{host}}/api/v1/events/registrations/{{regId}}/payments
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "paymentMethod": "CREDIT_CARD",
+    "amount": 100000,
+    "currency": "KRW",
+    "paymentInfo": {
+        "cardNumber": "1234-5678-9012-3456",
+        "expiryDate": "12/25",
+        "cvv": "123"
+    }
+}
+
+### 결제 정보 조회
+GET {{host}}/api/v1/events/registrations/{{regId}}/payments
+Authorization: Bearer {{accessToken}}
+
+### 환불 처리
+POST {{host}}/api/v1/events/payments/{{paymentId}}/refund
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "reason": "Customer request",
+    "refundAmount": 100000,
+    "comment": "Full refund processed"
+}
