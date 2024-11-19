@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .httpBasic(httpBasic -> httpBasic.disable()) // Basic 인증 비활성화
                 .formLogin(formLogin -> formLogin.disable()) // 폼 로그인도 비활성화
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()  // 인증 경로는 모두 허용
+                        .requestMatchers("/api/v1/auth/**").permitAll()  // 인증 경로는 모두 허용
                         .anyRequest().authenticated()  // 그 외 경로는 인증 필요
                 )
                 .sessionManagement(session -> session
