@@ -1,0 +1,44 @@
+@host = http://localhost:8080
+@eventId = 123
+@orgId = 456
+@userId = 789
+
+### 이벤트 요약 통계
+GET {{host}}/api/v1/analytics/events/{{eventId}}/summary
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 이벤트 요약 통계 (기간 지정)
+GET {{host}}/api/v1/analytics/events/{{eventId}}/summary?startDate=2024-01-01&endDate=2024-12-31
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 참가자 통계
+GET {{host}}/api/v1/analytics/events/{{eventId}}/participations
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 참가자 통계 (상세 필터)
+GET {{host}}/api/v1/analytics/events/{{eventId}}/participations?status=CONFIRMED&startDate=2024-01-01&endDate=2024-12-31&type=OFFLINE
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 조직 이벤트 통계
+GET {{host}}/api/v1/analytics/organizations/{{orgId}}/events
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 조직 이벤트 통계 (기간 및 타입 지정)
+GET {{host}}/api/v1/analytics/organizations/{{orgId}}/events?startDate=2024-01-01&endDate=2024-12-31&type=SEMINAR
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 사용자 참가 통계
+GET {{host}}/api/v1/analytics/users/{{userId}}/participations
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+### 사용자 참가 통계 (상세 필터)
+GET {{host}}/api/v1/analytics/users/{{userId}}/participations?status=COMPLETED&startDate=2024-01-01&endDate=2024-12-31
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json

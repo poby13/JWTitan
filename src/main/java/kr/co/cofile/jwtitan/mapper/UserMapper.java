@@ -1,15 +1,17 @@
 package kr.co.cofile.jwtitan.mapper;
 
-import kr.co.cofile.jwtitan.dto.User;
+import kr.co.cofile.jwtitan.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Optional;
+
 @Mapper
 public interface UserMapper {
 //    @Select("SELECT * FROM users WHERE username = #{username}")
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
     @Insert("INSERT INTO users (username, password, email, enabled) " +
             "VALUES (#{username}, #{password}, #{email}, #{enabled})")

@@ -1,4 +1,4 @@
-package kr.co.cofile.jwtitan.config.security;
+package kr.co.cofile.jwtitan.config;
 
 import kr.co.cofile.jwtitan.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;

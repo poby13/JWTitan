@@ -1,5 +1,6 @@
-package kr.co.cofile.jwtitan.dto;
+package kr.co.cofile.jwtitan.security;
 
+import kr.co.cofile.jwtitan.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

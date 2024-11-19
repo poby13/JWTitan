@@ -1,4 +1,4 @@
-package kr.co.cofile.jwtitan.dto;
+package kr.co.cofile.jwtitan.model;
 
 import jakarta.validation.constraints.Email;
 import lombok.Data;
@@ -12,6 +12,9 @@ public class User {
     private String password;
     @Email
     private String email;
+    private String name;
+    private String phone;
+    private String role;
     private Boolean enabled;
     private Long groupId;
     private List<Role> roleList;

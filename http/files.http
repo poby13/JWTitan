@@ -1,0 +1,59 @@
+@host = http://localhost:8080
+@fileId = abc123
+@eventId = event789
+@reviewId = review456
+
+### 파일 업로드 (단일 파일)
+POST {{host}}/api/v1/files/upload
+Authorization: Bearer {{accessToken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+Content-Length: <calculated when request is sent>
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="example.jpg"
+Content-Type: image/jpeg
+
+< ./example.jpg
+------WebKitFormBoundary--
+
+### 파일 업로드 (다중 파일)
+POST {{host}}/api/v1/files/upload
+Authorization: Bearer {{accessToken}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+Content-Length: <calculated when request is sent>
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="files"; filename="example1.jpg"
+Content-Type: image/jpeg
+
+< ./example1.jpg
+------WebKitFormBoundary
+Content-Disposition: form-data; name="files"; filename="example2.pdf"
+Content-Type: application/pdf
+
+< ./example2.pdf
+------WebKitFormBoundary--
+
+### 파일 다운로드
+GET {{host}}/api/v1/files/{{fileId}}
+Authorization: Bearer {{accessToken}}
+
+### 파일 삭제
+DELETE {{host}}/api/v1/files/{{fileId}}
+Authorization: Bearer {{accessToken}}
+
+### 이벤트 첨부파일 목록 조회
+GET {{host}}/api/v1/events/{{eventId}}/files
+Authorization: Bearer {{accessToken}}
+
+### 리뷰 첨부파일 목록 조회
+GET {{host}}/api/v1/reviews/{{reviewId}}/files
+Authorization: Bearer {{accessToken}}
+
+### 이벤트 첨부파일 목록 조회 (페이징, 정렬 포함)
+GET {{host}}/api/v1/events/{{eventId}}/files?page=1&size=20&sort=createdAt,desc
+Authorization: Bearer {{accessToken}}
+
+### 리뷰 첨부파일 목록 조회 (페이징, 정렬 포함)
+GET {{host}}/api/v1/reviews/{{reviewId}}/files?page=1&size=20&sort=createdAt,desc
+Authorization: Bearer {{accessToken}}

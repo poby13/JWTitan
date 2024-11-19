@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+// todo 유효성검사
 public class JwtRequest {
     private String username;
     private String password;
+    private Long groupId;
 }

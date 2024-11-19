@@ -1,0 +1,57 @@
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    container_name: jwtitan_postgres
+    environment:
+      POSTGRES_DB: jwtitan_db
+      POSTGRES_USER: poby13
+      POSTGRES_PASSWORD: Dockdo2#4
+      TZ: 'Asia/Seoul'
+      PGDATA: /var/lib/postgresql/data/pgdata
+      LANG: ko_KR.utf8
+      LC_COLLATE: C
+    ports:
+      - "15432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - jwtitan_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U appuser -d appdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  redis:
+    image: redis:7
+    container_name: jwtitan_redis
+    ports:
+      - "16379:6379"
+    command: redis-server --appendonly no
+    networks:
+      - jwtitan_network
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: jwtitan_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: actionshin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: cU1ai7s7PH2Fm3
+    ports:
+      - "15050:80"
+    depends_on:
+      - postgres
+    networks:
+      - jwtitan_network
+networks:
+  jwtitan_network:
+    driver: bridge
+volumes:
+  postgres_data:
+  redis_data:

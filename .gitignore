@@ -34,7 +34,9 @@ out/
 /.nb-gradle/
 
 ### VS Code ###
-.vscode/
+#.vscode/
 
 ### DATABASE ##
 /docker/postgres_data/
+/docker/insert_data.sql
+/*.zip
